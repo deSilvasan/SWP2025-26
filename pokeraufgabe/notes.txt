@@ -1,0 +1,52 @@
+Wahrscheinlichkeiten Poker
+https://de.wikipedia.org/wiki/Texas_Hold%E2%80%99em#Wahrscheinlichkeiten
+
+ 🂡 1. High Card (höchste Karte)
+* Erklärung: Keine Kombination, zählt nur die höchste Karte.
+* Beispiel: A♠ 10♦ 7♣ 5♥ 2♣ → „Ass hoch“
+* Punkte: ⭐ 1
+
+ 🂡🂦 2. Ein Paar (One Pair)
+* Erklärung: Zwei Karten mit gleichem Wert.
+* Beispiel: 9♠ 9♦ K♣ 6♥ 3♣
+* Punkte: ⭐⭐ 2
+
+ 🂡🂦🂫 3. Zwei Paare (Two Pair)
+* Erklärung: Zwei verschiedene Paare.
+* Beispiel: J♠ J♦ 7♣ 7♥ 2♣
+* Punkte: ⭐⭐⭐ 3
+
+ 🂡🂦🂫🃏 4. Drilling (Three of a Kind / Set)
+* Erklärung: Drei Karten mit gleichem Wert.
+* Beispiel: Q♠ Q♦ Q♣ 8♥ 3♣
+* Punkte: ⭐⭐⭐⭐ 4
+
+ 🂡🂢🂣🂤🂥 5. Straße (Straight)
+* Erklärung: Fünf Karten in Reihenfolge, verschiedene Farben.
+* Beispiel: 5♠ 6♦ 7♣ 8♥ 9♣
+* Punkte: ⭐⭐⭐⭐⭐ 5
+
+ 🂡🂡🂡🂡🂡 6. Flush
+* Erklärung: Fünf Karten gleicher Farbe, aber nicht in Reihenfolge.
+* Beispiel: A♠ J♠ 8♠ 4♠ 2♠
+* Punkte: ⭐⭐⭐⭐⭐⭐ 6
+
+ 🂡🂡🂡🂡🂡 7. Full House
+* Erklärung: Drilling + ein Paar.
+* Beispiel: 10♠ 10♦ 10♣ 7♥ 7♣
+* Punkte: ⭐⭐⭐⭐⭐⭐⭐ 7
+
+ 🂡🂡🂡🂡🂡 8. Vierling (Four of a Kind)
+* Erklärung: Vier Karten mit gleichem Wert.
+* Beispiel: K♠ K♦ K♣ K♥ 3♣
+* Punkte: ⭐⭐⭐⭐⭐⭐⭐⭐ 8
+
+ 🂡🂢🂣🂤🂥 9. Straight Flush
+* Erklärung: Fünf Karten in Reihenfolge und gleicher Farbe.
+* Beispiel: 5♥ 6♥ 7♥ 8♥ 9♥
+* Punkte: ⭐⭐⭐⭐⭐⭐⭐⭐⭐ 9
+
+ 🂡🂢🂣🂤🂥 10. Royal Flush
+* Erklärung: Die höchste Straße in gleicher Farbe (10 bis Ass).
+* Beispiel: 10♠ J♠ Q♠ K♠ A♠
+* Punkte: ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ 10
