@@ -3,21 +3,21 @@ import sys, random
 """fills a list up to an upper limit"""
 def fill_array_numbers(upper_limit):
     # Return a list containing numbers from 1 up to upper_limit (inclusive)
-    return list(range(1, upper_limit + 1))
+    return list(range(0, upper_limit))
 
 """
 Compares the color of the entered numbers (cards).
 Returns true if they are all the same color, returns false if they are not all the same color.
 It doesn't matter whether the numbers are in order or not.
 """
-import random
-
-def compare_colors(list_randomNumbers, color_number=4):
-    for e in range(color_number):
-        #Here, the numbers are compared to see if they fall within the interval.
-        if all((1+(13*e)) <= n <= (13+(13*e)) for n in list_randomNumbers):
-            return True
-    return False
+def compare_colors(list_randomNumbers):
+    # Calculate the color bucket of the first card by integer division by 13
+    ganzzahl = list_randomNumbers[0]//13
+    for e in list_randomNumbers:
+        # Check if all cards belong to the same color bucket
+        if((e//13) != ganzzahl):
+            return False
+    return True
 
 """
 It will compare whether the numbers are consecutive or not. Please note that the parameters must be passed in order. 
@@ -25,6 +25,7 @@ It will compare whether the numbers are consecutive or not. Please note that the
 def compare_order(list_randomNumbers):
     sortiert = sorted(list_randomNumbers)
     for i in range(len(sortiert) - 1):
+        # Check if difference between consecutive items is exactly 1
         if sortiert[i + 1] - sortiert[i] != 1:
             return False
     return True
@@ -33,10 +34,6 @@ def compare_order(list_randomNumbers):
 An ordered list must be submitted, and then random numbers are generated. You then receive a list with randomnumbers_count elements.
 """
 def draw_random_numbers(numbers_list, randomnumbers_count):
-    if randomnumbers_count > len(numbers_list):
-        raise ValueError("randomnumbers_count cannot be greater than the list length")
-    if randomnumbers_count == 0:
-        return []
     for e in range(randomnumbers_count):
         #random nummer is drawn
         random_number = random.randint(0,len(numbers_list)-1)
@@ -44,51 +41,56 @@ def draw_random_numbers(numbers_list, randomnumbers_count):
         #replace last list element with list element of random number and via versa
         numbers_list[random_number] = numbers_list[len(numbers_list)-e-1]
         numbers_list[len(numbers_list)-e-1] = random_number_list_element
+    # return last randomnumbers_count elements as randomly drawn cards
     return numbers_list[-randomnumbers_count:]
 
 """Check whether the entire given numbers_list contains unique values (no duplicate values)."""
 def is_unique(numbers_list):
     seen = set()
     for x in numbers_list:
+        # If already seen, list is not unique
         if x in seen:
             return False
         seen.add(x)
     return True
 
-"""counts cards with the same value"""
+"""counts cards with the same value, but not the same color. gives back a list with numbers and their frequency in the array"""
 def count_equal_cards(numbers_list):
     ergebnis_dict = {}
     for number in numbers_list:
-        if(number<=13):
+        # Maps card IDs to ranks within a suit (0 to 12) by subtracting multiples of 13
+        if(number<=12):
             if number not in ergebnis_dict:
                 ergebnis_dict[number] = 0
             ergebnis_dict[number] += 1
-        elif(number<=26):
+        elif(number<=25):
             if number-13 not in ergebnis_dict:
                 ergebnis_dict[number-13] = 0
             ergebnis_dict[number-13] += 1
-        elif(number<=39):
+        elif(number<=38):
             if number-26 not in ergebnis_dict:
                 ergebnis_dict[number-26] = 0
             ergebnis_dict[number-26] += 1
-        elif(number<=52):
+        elif(number<=51):
             if number-39 not in ergebnis_dict:
                 ergebnis_dict[number-39] = 0
             ergebnis_dict[number-39] += 1
+    # Return the counts of each card rank across different suits
     return list(ergebnis_dict.values())
 
 """Compares the combinations in a poker game and writes them to the given statistic_dict."""
 def check_combinations_insert_statistic(randomnumbers_list, statistic_dict):
     if compare_colors(randomnumbers_list):
         if(compare_order(randomnumbers_list)):
-            if(any(e%13 == 0 for e in randomnumbers_list)):
+            if(any((e-1)%13 == 0 for e in randomnumbers_list)):
                 statistic_dict['RoyalFlush'] += 1
             elif(is_unique(randomnumbers_list)):
                 statistic_dict['StraightFlush'] += 1
         else: statistic_dict['Flush'] += 1
     elif(any(e==4 for e in count_equal_cards(randomnumbers_list))):
         statistic_dict['FourOfAKind'] += 1
-    elif(any(e==2 for e in count_equal_cards(randomnumbers_list)) and (any(e==3 for e in count_equal_cards(randomnumbers_list)))):
+    elif(any(e==2 for e in count_equal_cards(randomnumbers_list))
+         and (any(e==3 for e in count_equal_cards(randomnumbers_list)))):
         statistic_dict['FullHouse'] += 1
     elif(compare_order(randomnumbers_list)):
         statistic_dict['Straight'] += 1
@@ -135,7 +137,4 @@ if __name__ == "__main__":
             procentual_result[e] = (statistic_dict[e]/moves_total)*100
         else: procentual_result[e] = 0
     print("prozentuale Ergebnisse" , procentual_result, sep=" ")
-    print("wahrscheinlichkeiten", wahrscheinlichkeit_dict, sep=" ")
-
-
-
+    print("wahrscheinlichkeiten bei 1000 Zügen", wahrscheinlichkeit_dict, sep=" ")
