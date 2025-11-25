@@ -2,7 +2,7 @@ import sys, random
 
 """fills a list up to an upper limit"""
 def fill_array_numbers(upper_limit):
-    # Return a list containing numbers from 1 up to upper_limit (inclusive)
+    # Return a list containing numbers from 0 up to upper_limit (inclusive)
     return list(range(0, upper_limit))
 
 """
@@ -20,13 +20,17 @@ def compare_colors(list_randomNumbers):
     return True
 
 """
-It will compare whether the numbers are consecutive or not. Please note that the parameters must be passed in order. 
+It will compare whether the numbers are consecutive or not even if they are not the same color. 
 """
-def compare_order(list_randomNumbers):
-    sortiert = sorted(list_randomNumbers)
+def compare_order(list_randomNumbers, colorImportant):
+    sortiert = 0
+    if colorImportant:
+        sortiert = sorted(list_randomNumbers)
+    else:
+        sortiert = sorted([e%13 for e in list_randomNumbers])
     for i in range(len(sortiert) - 1):
         # Check if difference between consecutive items is exactly 1
-        if sortiert[i + 1] - sortiert[i] != 1:
+        if (sortiert[i + 1] - sortiert[i]) != 1:
             return False
     return True
 
@@ -59,7 +63,13 @@ def count_equal_cards(numbers_list):
     ergebnis_dict = {}
     for number in numbers_list:
         # Maps card IDs to ranks within a suit (0 to 12) by subtracting multiples of 13
-        if(number<=12):
+        # Der Ternäre Operator schaut, ob das dict die nummer schon drinnen hat
+        number = number%13
+        number_temp_value = ergebnis_dict.get(number, 0)
+        ergebnis_dict[number] = {True: 1, False: number_temp_value +1}[number not in ergebnis_dict]
+        #gelöst mit Ternärem Operator
+        """if(number<=12):
+            ergebnis_dict[number] = {True: 0}
             if number not in ergebnis_dict:
                 ergebnis_dict[number] = 0
             ergebnis_dict[number] += 1
@@ -74,36 +84,46 @@ def count_equal_cards(numbers_list):
         elif(number<=51):
             if number-39 not in ergebnis_dict:
                 ergebnis_dict[number-39] = 0
-            ergebnis_dict[number-39] += 1
+            ergebnis_dict[number-39] += 1"""
     # Return the counts of each card rank across different suits
     return list(ergebnis_dict.values())
 
 """Compares the combinations in a poker game and writes them to the given statistic_dict."""
 def check_combinations_insert_statistic(randomnumbers_list, statistic_dict):
+    equal_cards_randomnumbers = count_equal_cards(randomnumbers_list)
     if compare_colors(randomnumbers_list):
-        if(compare_order(randomnumbers_list)):
-            if(any((e-1)%13 == 0 for e in randomnumbers_list)):
+        if compare_order(randomnumbers_list, True):
+            if(any(e%13 == 12 for e in randomnumbers_list)):
+                #10 to Ass that have the same color
                 statistic_dict['RoyalFlush'] += 1
             elif(is_unique(randomnumbers_list)):
+                #random 5 cards in order with the same color
                 statistic_dict['StraightFlush'] += 1
-        else: statistic_dict['Flush'] += 1
-    elif(any(e==4 for e in count_equal_cards(randomnumbers_list))):
+        else:
+            #5 cards with same color but not in order
+            statistic_dict['Flush'] += 1
+    elif(4 in equal_cards_randomnumbers):
+        #4 cards with the same value
         statistic_dict['FourOfAKind'] += 1
-    elif(any(e==2 for e in count_equal_cards(randomnumbers_list))
-         and (any(e==3 for e in count_equal_cards(randomnumbers_list)))):
+    elif((2 in equal_cards_randomnumbers) and (3 in equal_cards_randomnumbers)):
+        #3 equal card values and 2 equal card values
         statistic_dict['FullHouse'] += 1
-    elif(compare_order(randomnumbers_list)):
+    elif compare_order(randomnumbers_list, True):
+        #5 cards in order with mixed colors
         statistic_dict['Straight'] += 1
-    elif(any(e==3 for e in count_equal_cards(randomnumbers_list))):
+    elif(3 in equal_cards_randomnumbers):
+        #3 cards with same values
         statistic_dict['ThreeOfAKind-Set'] += 1
-    elif(count_equal_cards(randomnumbers_list).count(2)==2):
+    elif(equal_cards_randomnumbers.count(2)==2):
+        #2 pairs
         statistic_dict['TwoPair'] += 1
-    elif(count_equal_cards(randomnumbers_list).count(2)==1):
+    elif(equal_cards_randomnumbers.count(2)==1):
+        #one pair with same value
         statistic_dict['OnePair'] += 1
     else: statistic_dict['HighCard'] += 1
 
 if __name__ == "__main__":
-    poker_cards_count = 52
+    poker_cards_count = 51
     cards_drawn = 5
     moves_total = 0
     statistic_dict = {'HighCard':0, 'OnePair':0, 'TwoPair':0, 'ThreeOfAKind-Set':0, 'Straight':0, 'Flush':0,
@@ -131,10 +151,15 @@ if __name__ == "__main__":
         check_combinations_insert_statistic(randomnumber_list, statistic_dict)
 
     #prozentuelle Anteile
-    procentual_result = {}
+    """procentual_result = {}
     for e in statistic_dict:
         if(statistic_dict[e] != 0):
             procentual_result[e] = (statistic_dict[e]/moves_total)*100
-        else: procentual_result[e] = 0
+        else: procentual_result[e] = 0"""
+
+    #prozentuale Anteile mit ternären Operatoren gelöst
+    procentual_result = {}
+    for e in statistic_dict:
+        procentual_result[e] = (statistic_dict[e]/moves_total)*100 if (statistic_dict[e] != 0) else 0
     print("prozentuale Ergebnisse" , procentual_result, sep=" ")
     print("wahrscheinlichkeiten bei 1000 Zügen", wahrscheinlichkeit_dict, sep=" ")
