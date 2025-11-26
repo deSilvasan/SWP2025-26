@@ -108,7 +108,7 @@ def check_combinations_insert_statistic(randomnumbers_list, statistic_dict):
     elif((2 in equal_cards_randomnumbers) and (3 in equal_cards_randomnumbers)):
         #3 equal card values and 2 equal card values
         statistic_dict['FullHouse'] += 1
-    elif compare_order(randomnumbers_list, True):
+    elif compare_order(randomnumbers_list, False):
         #5 cards in order with mixed colors
         statistic_dict['Straight'] += 1
     elif(3 in equal_cards_randomnumbers):
