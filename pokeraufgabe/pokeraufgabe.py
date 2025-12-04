@@ -23,11 +23,8 @@ def compare_colors(list_randomNumbers):
 It will compare whether the numbers are consecutive or not even if they are not the same color. 
 """
 def compare_order(list_randomNumbers, colorImportant):
-    sortiert = 0
-    if colorImportant:
-        sortiert = sorted(list_randomNumbers)
-    else:
-        sortiert = sorted([e%13 for e in list_randomNumbers])
+    #solved with the ternäry operator
+    sortiert = sorted(list_randomNumbers) if colorImportant else sorted([e%13 for e in list_randomNumbers])
     for i in range(len(sortiert) - 1):
         # Check if difference between consecutive items is exactly 1
         if (sortiert[i + 1] - sortiert[i]) != 1:
@@ -63,11 +60,10 @@ def count_equal_cards(numbers_list):
     ergebnis_dict = {}
     for number in numbers_list:
         # Maps card IDs to ranks within a suit (0 to 12) by subtracting multiples of 13
-        # Der Ternäre Operator schaut, ob das dict die nummer schon drinnen hat
+        #solved with the Ternäry Operator
         number = number%13
         number_temp_value = ergebnis_dict.get(number, 0)
         ergebnis_dict[number] = {True: 1, False: number_temp_value +1}[number not in ergebnis_dict]
-        #gelöst mit Ternärem Operator
         """if(number<=12):
             ergebnis_dict[number] = {True: 0}
             if number not in ergebnis_dict:
@@ -157,7 +153,7 @@ if __name__ == "__main__":
             procentual_result[e] = (statistic_dict[e]/moves_total)*100
         else: procentual_result[e] = 0"""
 
-    #prozentuale Anteile mit ternären Operatoren gelöst
+    #the procentual parts with the ternary Operator solved
     procentual_result = {}
     for e in statistic_dict:
         procentual_result[e] = (statistic_dict[e]/moves_total)*100 if (statistic_dict[e] != 0) else 0
