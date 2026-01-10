@@ -6,7 +6,6 @@ programmiere in Python:
 - Es gibt Personen, Mitarbeiter, Abteilungsleiter
 - Es gibt mehrere Abteilungen, jede(r) Mitarbeiter ist in einer Abteilung
 - Es gibt beide Geschlechter
-
 - es gibt nur einen Abteilungsleiter pro Abteilung
 - Mitarbeiter gehören immer zu einer Abteilung
 - ein Abteilungsleiter ist auch ein Mitarbeiter
