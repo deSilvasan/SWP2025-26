@@ -2,11 +2,9 @@ from __future__ import annotations
 import datetime
 from enum import Enum
 
-
 class Genders(Enum):
     male = 0
     female = 1
-
 
 class Person():
     def __init__(self, name: str, gender: Genders, birthday: datetime.date):
@@ -31,7 +29,7 @@ class Employees(Person):
 
 
 class DepartmentManager(Employees):
-    def __init__(self, name: str, gender: Genders, birthday, leadingdepartment: Department):
+    def __init__(self, name: str, gender: Genders, birthday:datetime.date, leadingdepartment: Department):
         super().__init__(name, gender, birthday, leadingdepartment)
         self.leadingdepartment = leadingdepartment
 
@@ -41,7 +39,7 @@ class DepartmentManager(Employees):
 
 
 class Department:
-    def __init__(self, name, leader: DepartmentManager, employees: list):
+    def __init__(self, name: str, leader: DepartmentManager, employees: list):
         self.name = name
         self.leader = leader
         if type(employees) is list:
@@ -64,7 +62,7 @@ class Department:
             raise Exception("There arent existing any employees in the department " + self.name + "!")
 
 
-class company:
+class Company:
     def __init__(self, name: str, departments: list):
         self.name = name
         if type(departments) is list:
