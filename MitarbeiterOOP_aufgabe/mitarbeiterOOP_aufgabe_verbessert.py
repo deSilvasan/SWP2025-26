@@ -15,7 +15,6 @@ class Person():
     def __str__(self):
         return f"Ich bin {self.name}, {self.gender} und bin {datetime.datetime.now().date() - self.birthday} Jahre alt."
 
-
 class Employees(Person):
     def __init__(self, name: str, gender: Genders, birthday: datetime.date, department: Department):
         super().__init__(name, gender, birthday)
@@ -27,16 +26,14 @@ class Employees(Person):
         return (f"Ich bin {self.name}, {self.gender}, Mitarbeiter der Abteilung {self.department} und bin "
                 f"{datetime.datetime.now().date() - self.birthday} Jahre alt.")
 
-
 class DepartmentManager(Employees):
     def __init__(self, name: str, gender: Genders, birthday:datetime.date, leadingdepartment: Department):
-        super().__init__(name, gender, birthday, leadingdepartment)
+        super(Employees, self).__init__(name, gender, birthday)
         self.leadingdepartment = leadingdepartment
 
     def __str__(self):
         return (f"Ich bin {self.name}, {self.gender}, Abteilungsleister der Abteilung {self.department} und bin "
                 f"{datetime.datetime.now().date() - self.birthday} Jahre alt.")
-
 
 class Department:
     def __init__(self, name: str, leader: DepartmentManager, employees: list):
@@ -60,7 +57,6 @@ class Department:
             return count_female
         else:
             raise Exception("There arent existing any employees in the department " + self.name + "!")
-
 
 class Company:
     def __init__(self, name: str, departments: list):
@@ -165,7 +161,9 @@ def main():
             emp.department = dep
 
     # --- Firma erstellen ---
-    my_company = company("TechCorp", [dep1, dep2, dep3, dep4])
+    my_company = Company("TechCorp", [dep1, dep2, dep3, dep4])
+
+    print(DepartmentManager.mro())
 
     # --- Ausgabe ---
     print(my_company)
@@ -192,10 +190,11 @@ def main():
     # 4. Anzahl Mitarbeiter pro Abteilung
     for dep in my_company.departments:
         print(
-            f"Abteilung {dep.name} hat {dep.count_employees()} Mitarbeiter, davon {dep.count_female_employees()} weiblich.")
+            f"Abteilung {dep.name} hat {dep.count_female_employees()} Mitarbeiter, davon {dep.count_female_employees()} weiblich.")
 
 if __name__ == '__main__':
     try:
         main()
+
     except:
         print("An error occured!")
