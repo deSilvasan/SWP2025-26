@@ -1,4 +1,4 @@
-import sys, random
+import sys, random, functools, time
 
 """fills a list up to an upper limit"""
 def fill_array_numbers(upper_limit):
@@ -118,6 +118,25 @@ def check_combinations_insert_statistic(randomnumbers_list, statistic_dict):
         statistic_dict['OnePair'] += 1
     else: statistic_dict['HighCard'] += 1
 
+def timer(func):
+    @functools.wraps(func)
+    def wrapper_timer(*args):
+        start_time = time.perf_counter()
+        value = func(*args)
+        end_time = time.perf_counter()
+        run_time = end_time - start_time
+        print(f"Finished {func.__name__}() in {run_time:.4f} secs")
+        return value
+    return wrapper_timer
+
+@timer
+def poker_play(pcc,cards_taken, statistic):
+    for e in range(moves_total):
+        filled_list = fill_array_numbers(pcc)
+        randomnumber_list = draw_random_numbers(filled_list, cards_taken)
+        check_combinations_insert_statistic(randomnumber_list, statistic)
+    return statistic
+
 if __name__ == "__main__":
     poker_cards_count = 51
     cards_drawn = 5
@@ -141,10 +160,7 @@ if __name__ == "__main__":
     print("cards drawn in each round", cards_drawn, sep=" ")
     print("total played rounds", moves_total, sep=" ")
 
-    for e in range(moves_total):
-        filled_list = fill_array_numbers(poker_cards_count)
-        randomnumber_list = draw_random_numbers(filled_list, cards_drawn)
-        check_combinations_insert_statistic(randomnumber_list, statistic_dict)
+    poker_play(poker_cards_count, cards_drawn, statistic_dict)
 
     #prozentuelle Anteile
     """procentual_result = {}
