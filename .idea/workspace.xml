@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26652dff-3b3c-40c5-9a5e-d13f8bf0d6d3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Repository2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Repository2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeraufgabe/pokeraufgabe.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokeraufgabe/pokeraufgabe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokeraufgabe/test*.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +34,15 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.aufgabe.executor": "Run",
+    "Python.dummy.executor": "Run",
+    "Python.list_comprehensions.executor": "Run",
     "Python.mitarbeiterOOP_aufgabe_verbessert.executor": "Run",
     "Python.pokeraufgabe.executor": "Run",
+    "Python.verketteListeAufgabe.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/silva/Documents/consoleGame",
+    "last_opened_file_path": "/home/silva/Documents/KINZ/openSourceModellTry",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -45,7 +50,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-4762d8aabb82-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.30387.173" />
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
       </set>
     </attachedChunks>
   </component>
